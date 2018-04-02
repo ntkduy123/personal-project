@@ -24,6 +24,7 @@ public class PersonalProjectApplication {
 			@Override
 			public void addResourceHandlers (ResourceHandlerRegistry registry) {
 				registry.addResourceHandler("/dist/**").addResourceLocations("classpath:/static/dist/");
+				registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/static/dist/assets/");
 			}
 		};
 	}
