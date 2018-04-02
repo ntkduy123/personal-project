@@ -10,10 +10,10 @@ spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.default_schema: duynguyen
 liquibase.default-schema: duynguyen
 
-project.static-url: http://localhost:8081
+project.static-url: http://localhost:8080
 spring.thymeleaf.cache: false
 
 server:
-  port: 8089
+  port: 8080
 
 ---
