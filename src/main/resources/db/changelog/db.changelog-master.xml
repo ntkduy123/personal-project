@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog>
     <changeSet author="MSI (generated)" id="1522765801863-1">
         <createSequence sequenceName="hibernate_sequence"/>
     </changeSet>
