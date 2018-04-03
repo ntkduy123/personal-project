@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4.1212</version>
+			<version>9.4-1206-jdbc42</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -69,12 +69,6 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>3.4.1</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -117,49 +111,6 @@
 						<version>${querydsl.version}</version>
 					</dependency>
 				</dependencies>
-			</plugin>
-
-			<plugin>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-maven-plugin</artifactId>
-				<version>3.4.1</version>
-				<configuration>
-					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals><goal>copy</goal></goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.liquibase</groupId>
-									<artifactId>liquibase-core</artifactId>
-									<version>3.4.1</version>
-									<destFileName>liquibase.jar</destFileName>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.yaml</groupId>
-									<artifactId>snakeyaml</artifactId>
-									<version>1.13</version>
-									<outputDirectory>${project.build.directory}/dependency/lib</outputDirectory>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.postgresql</groupId>
-									<artifactId>postgresql</artifactId>
-									<version>9.4.1212</version>
-									<destFileName>postgres.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

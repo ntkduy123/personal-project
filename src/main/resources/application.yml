@@ -1,9 +1,9 @@
 spring:
   profiles: development
   datasource:
-      url: jdbc:postgresql://localhost:5432/duynguyen?currentSchema=duynguyen
-      username: postgres
-      password: Kimdung@1234
+      url: jdbc:postgres://htebnrtmtscblb:c345f5b09b39d5bc9dd927a229af2907ae823b8b4a8b114fdecbcfe11dd6d0e9@ec2-107-21-126-193.compute-1.amazonaws.com:5432/de0csijcjdls4j?currentSchema=public
+      username: htebnrtmtscblb
+      password: c345f5b09b39d5bc9dd927a229af2907ae823b8b4a8b114fdecbcfe11dd6d0e9
       driver-class-name: org.postgresql.Driver
 
 spring.jpa.hibernate.ddl-auto: update
