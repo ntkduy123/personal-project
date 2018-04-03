@@ -22,7 +22,6 @@ public class Article
 
     private String reference;
 
-    @Lob
     private String content;
 
     public Long getId() {
