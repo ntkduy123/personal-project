@@ -8,4 +8,8 @@ public interface ArticleService {
     List<Article> findAll();
 
     void save(Article article);
+
+    Article findById(Long id);
+
+    void delete(Long id);
 }

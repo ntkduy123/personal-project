@@ -35,7 +35,7 @@ public class PersonalProjectApplication {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/article/**").allowedOrigins("*");
+				registry.addMapping("/api/article/**").allowedMethods("GET", "POST","PUT", "DELETE");
 			}
 		};
 	}

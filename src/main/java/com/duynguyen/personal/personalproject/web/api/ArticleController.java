@@ -18,6 +18,32 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity updateArticle(@PathVariable Long id) {
+        System.out.println(id);
+        articleService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity updateArticle(@RequestBody String data) {
+        System.out.println(data);
+        Article article = new Gson().fromJson(data, Article.class);
+
+        article.setDate(new Date());
+
+        articleService.save(article);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Article getArticleById(@PathVariable Long id) {
+        return articleService.findById(id);
+    }
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> getAllArticles() {
