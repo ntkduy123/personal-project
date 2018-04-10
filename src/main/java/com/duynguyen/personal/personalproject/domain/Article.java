@@ -18,8 +18,10 @@ public class Article
 
     private Date date;
 
+    @Lob
     private String summary;
 
+    @Lob
     private String reference;
 
     @Lob
