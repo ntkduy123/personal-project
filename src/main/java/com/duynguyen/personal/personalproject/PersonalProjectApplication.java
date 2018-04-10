@@ -25,6 +25,7 @@ public class PersonalProjectApplication {
 			public void addResourceHandlers (ResourceHandlerRegistry registry) {
 				registry.addResourceHandler("/dist/**").addResourceLocations("classpath:/static/dist/");
 				registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/static/dist/assets/");
+				registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 			}
 		};
 	}
