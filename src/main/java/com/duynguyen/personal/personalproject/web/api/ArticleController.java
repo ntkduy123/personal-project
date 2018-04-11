@@ -3,12 +3,25 @@ package com.duynguyen.personal.personalproject.web.api;
 import com.duynguyen.personal.personalproject.domain.Article;
 import com.duynguyen.personal.personalproject.service.ArticleService;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -17,6 +30,9 @@ public class ArticleController {
 
     @Resource
     private ArticleService articleService;
+
+    @Autowired
+    ServletContext servletContext;
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
@@ -47,17 +63,32 @@ public class ArticleController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> getAllArticles() {
+
+        System.out.println(System.getProperty("user.dir"));
         return articleService.findAll();
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity addArticle(@RequestBody String data) {
+    public HashMap addArticle(@RequestBody String data) {
         Article article = new Gson().fromJson(data, Article.class);
 
         article.setDate(new Date());
 
         articleService.save(article);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", article.getId().toString());
+        return map;
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("fileName") String fileName) throws IOException, SQLException {
+        File convFile  = new File("src/main/resources/static/images/" + fileName);
+        FileOutputStream fos = new FileOutputStream(convFile);
+
+        fos.write(multipartFile.getBytes());
+        fos.close();
         return ResponseEntity.ok().build();
     }
 }

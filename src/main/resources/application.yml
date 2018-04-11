@@ -10,7 +10,10 @@ spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.default_schema: duynguyen
 liquibase.default-schema: duynguyen
 
+project.base-dir: file:///F:/projects/personal-project
 spring.thymeleaf.cache: false
+spring.resources.cache-period: 0
+spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
 
 server:
   port: 8080
@@ -29,7 +32,10 @@ spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.default_schema: duynguyen
 liquibase.default-schema: duynguyen
 
+project.base-dir: file:///F:/projects/personal-project
 spring.thymeleaf.cache: false
+spring.resources.cache-period: 0
+spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
 
 server:
   port: 8080
