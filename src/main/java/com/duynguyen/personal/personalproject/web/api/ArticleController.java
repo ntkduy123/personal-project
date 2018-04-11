@@ -63,7 +63,7 @@ public class ArticleController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> getAllArticles() {
-
+        System.out.println(System.getProperty("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
         System.out.println(System.getProperty("user.dir"));
         return articleService.findAll();
     }
