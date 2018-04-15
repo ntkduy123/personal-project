@@ -6,6 +6,8 @@ spring:
       password: Kimdung@1234
       driver-class-name: org.postgresql.Driver
 
+
+
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.default_schema: duynguyen
 liquibase.default-schema: duynguyen
@@ -41,3 +43,4 @@ spring.resources.static-locations: ${project.base-dir}/src/main/resources/static
 aws.access-key: AKIAIDZHEVKQTGYOGYXQ
 aws.secret-key: 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
 aws.bucket-name: ql-cf-templates-1523762837-fef228d14b741468-us-west-2
+
