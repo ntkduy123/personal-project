@@ -60,6 +60,9 @@ public class ArticleController extends BaseController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
     public String test() {
+        for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
         return System.getProperty("user.dir");
     }
 

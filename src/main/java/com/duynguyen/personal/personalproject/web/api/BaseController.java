@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public abstract class BaseController {
 
-    @Value("${aws.access-key}")
-    protected String accessKey;
+    protected String accessKey = System.getenv("AWS_ACCESS_KEY_ID");
 
-    @Value("${aws.secret-key}")
-    protected String secretKey;
+    protected String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY");
 
-    @Value("${aws.bucket-name}")
-    protected String bucketName;
+    protected String bucketName = System.getenv("AWS_BUCKET_NAME");
 
 }
