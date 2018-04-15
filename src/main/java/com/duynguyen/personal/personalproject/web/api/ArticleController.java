@@ -1,35 +1,32 @@
 package com.duynguyen.personal.personalproject.web.api;
 
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.duynguyen.personal.personalproject.domain.Article;
+import com.duynguyen.personal.personalproject.service.AWSService;
 import com.duynguyen.personal.personalproject.service.ArticleService;
+import com.duynguyen.personal.personalproject.util.FileUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/api/article")
-public class ArticleController {
+public class ArticleController extends BaseController {
 
     @Resource
     private ArticleService articleService;
+
+    @Resource
+    private AWSService awsService;
 
     @Autowired
     ServletContext servletContext;
@@ -88,12 +85,15 @@ public class ArticleController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("fileName") String fileName) throws IOException, SQLException {
-        File convFile  = new File("src/main/resources/static/images/" + fileName);
-        FileOutputStream fos = new FileOutputStream(convFile);
+    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile multipartFile,
+                                      @RequestParam("fileName") String fileName,
+                                      @RequestParam("articleId") Long articleId) throws IOException {
+        awsService.setup(accessKey, secretKey);
+        String description = awsService.uploadFile(bucketName, FileUtil.convertMultiPartToFile(multipartFile, fileName));
 
-        fos.write(multipartFile.getBytes());
-        fos.close();
+        Article article = articleService.findById(articleId);
+        article.setDescription(description);
+        articleService.save(article);
         return ResponseEntity.ok().build();
     }
 }

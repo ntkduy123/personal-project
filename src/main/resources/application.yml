@@ -15,6 +15,10 @@ spring.thymeleaf.cache: false
 spring.resources.cache-period: 0
 spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
 
+aws.access-key: AKIAIDZHEVKQTGYOGYXQ
+aws.secret-key: 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
+aws.bucket-name: ql-cf-templates-1523762837-fef228d14b741468-us-west-2
+
 server:
   port: 8080
 
@@ -36,6 +40,10 @@ project.base-dir: /app
 spring.thymeleaf.cache: false
 spring.resources.cache-period: 0
 spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
+
+aws.access-key: AKIAIDZHEVKQTGYOGYXQ
+aws.secret-key: 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
+aws.bucket-name: ql-cf-templates-1523762837-fef228d14b741468-us-west-2
 
 server:
   port: 8080
