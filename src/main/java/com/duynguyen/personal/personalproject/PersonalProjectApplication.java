@@ -4,6 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableAsync
 public class PersonalProjectApplication {
 
 	public static void main(String[] args) {
@@ -36,7 +41,7 @@ public class PersonalProjectApplication {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/article/**").allowedMethods("GET", "POST","PUT", "DELETE");
+				registry.addMapping("/**").allowedMethods("GET", "POST","PUT", "DELETE");
 			}
 		};
 	}

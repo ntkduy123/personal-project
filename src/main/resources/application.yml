@@ -5,7 +5,18 @@ spring:
       username: postgres
       password: Kimdung@1234
       driver-class-name: org.postgresql.Driver
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: duydailip1@gmail.com
+    password: Kimdung@1234
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
 
 
 spring.jpa.hibernate.ddl-auto: update
@@ -17,10 +28,6 @@ spring.thymeleaf.cache: false
 spring.resources.cache-period: 0
 spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
 
-aws.access-key: AKIAIDZHEVKQTGYOGYXQ
-aws.secret-key: 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
-aws.bucket-name: ql-cf-templates-1523762837-fef228d14b741468-us-west-2
-
 ---
 
 spring:
@@ -30,6 +37,18 @@ spring:
       username: htebnrtmtscblb
       password: c345f5b09b39d5bc9dd927a229af2907ae823b8b4a8b114fdecbcfe11dd6d0e9
       driver-class-name: org.postgresql.Driver
+  mail:
+      host: smtp.gmail.com
+      port: 587
+      username: duydailip1@gmail.com
+      password: Kimdung@1234
+      properties:
+        mail:
+          smtp:
+            starttls:
+              enable: true
+              required: true
+            auth: true
 
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.properties.hibernate.default_schema: duynguyen
@@ -39,8 +58,4 @@ project.base-dir: /app
 spring.thymeleaf.cache: false
 spring.resources.cache-period: 0
 spring.resources.static-locations: ${project.base-dir}/src/main/resources/static/
-
-aws.access-key: AKIAIDZHEVKQTGYOGYXQ
-aws.secret-key: 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
-aws.bucket-name: ql-cf-templates-1523762837-fef228d14b741468-us-west-2
 
