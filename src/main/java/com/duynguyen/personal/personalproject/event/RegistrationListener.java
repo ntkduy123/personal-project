@@ -3,6 +3,7 @@ package com.duynguyen.personal.personalproject.event;
 import com.duynguyen.personal.personalproject.domain.MyUser;
 import com.duynguyen.personal.personalproject.service.MyUserService;
 import com.duynguyen.personal.personalproject.service.VerificationTokenService;
+import com.sendgrid.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
@@ -13,16 +14,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.UUID;
 
 @Component
 public class RegistrationListener {
-
-    @Autowired
-    private MyUserService myUserService;
-
-    @Autowired
-    private JavaMailSender mailSender;
 
     @Resource
     private VerificationTokenService tokenService;
@@ -34,11 +30,6 @@ public class RegistrationListener {
     }
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         MyUser myUser = event.getUser();
         String token = UUID.randomUUID().toString();
         System.out.println(token);
@@ -51,11 +42,25 @@ public class RegistrationListener {
         String confirmationUrl = event.getAppUrl() + "/registration/confirm?token=" + token;
         String message = "Activate your account by clicking in this link: ";
 
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientAddress);
-        email.setSubject(subject);
-        email.setText(message + confirmationUrl);
-        mailSender.send(email);
+        Email from = new Email(System.getenv("SENDGRID_USERNAME"));
+        Email to = new Email(myUser.getEmail());
+        Content content = new Content("text/plain", message + confirmationUrl);
+        Mail mail = new Mail(from, subject, to, content);
+
+        SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+        Request request = new Request();
+        try {
+            request.method = Method.POST;
+            request.endpoint = "mail/send";
+            request.body = mail.build();
+            Response response = sg.api(request);
+            System.out.println(response.statusCode);
+            System.out.println(response.body);
+            System.out.println(response.headers);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
 }
