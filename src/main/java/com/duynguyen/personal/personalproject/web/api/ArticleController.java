@@ -2,8 +2,10 @@ package com.duynguyen.personal.personalproject.web.api;
 
 import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.duynguyen.personal.personalproject.domain.Article;
+import com.duynguyen.personal.personalproject.domain.MyUser;
 import com.duynguyen.personal.personalproject.service.AWSService;
 import com.duynguyen.personal.personalproject.service.ArticleService;
+import com.duynguyen.personal.personalproject.service.MyUserService;
 import com.duynguyen.personal.personalproject.util.FileUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
 
     @Resource
+    private MyUserService myUserService;
+
+    @Resource
     private AWSService awsService;
 
     @Autowired
@@ -34,7 +39,6 @@ public class ArticleController extends BaseController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity updateArticle(@PathVariable Long id) {
-        System.out.println(id);
         articleService.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -59,8 +63,15 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
-    public String test() {
-        return System.getProperty("user.dir");
+    public List<MyUser> test() {
+        Article article = new Article();
+        article.setTitle("test");
+        article.setCategory("people");
+        article.setDate(new Date());
+        article.setContent("test");
+        article.setSummary("test");
+        articleService.save(article);
+        return myUserService.findAll();
     }
 
 

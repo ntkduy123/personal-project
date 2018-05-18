@@ -16,6 +16,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public Response send(Email to, String subject, String message) {
 
+        System.out.println(USERNAME);
+        System.out.println(API_KEY);
         Email from = new Email(USERNAME);
 
         Content content = new Content("text/plain", message);

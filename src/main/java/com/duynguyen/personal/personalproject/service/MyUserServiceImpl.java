@@ -4,6 +4,8 @@ import com.duynguyen.personal.personalproject.domain.MyUser;
 import com.duynguyen.personal.personalproject.domain.VerificationToken;
 import com.duynguyen.personal.personalproject.repository.jpa.MyUserRepository;
 import com.duynguyen.personal.personalproject.repository.jpa.VerificationTokenRepository;
+import com.google.common.collect.Lists;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +16,9 @@ import java.util.List;
 public class MyUserServiceImpl implements MyUserService {
 
     @Resource
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Resource
     private MyUserRepository myUserRepository;
 
     @Resource
@@ -22,6 +27,7 @@ public class MyUserServiceImpl implements MyUserService {
     @Transactional
     @Override
     public MyUser save(MyUser user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return myUserRepository.save(user);
     }
 
@@ -34,5 +40,15 @@ public class MyUserServiceImpl implements MyUserService {
     @Override
     public MyUser findByToken(String token) {
         return tokenRepository.findByToken(token).getMyUser();
+    }
+
+    @Override
+    public List<MyUser> findAll() {
+        return Lists.newArrayList(myUserRepository.findAll());
+    }
+
+    @Override
+    public MyUser findByEmail(String email) {
+        return myUserRepository.findByEmail(email).get(0);
     }
 }

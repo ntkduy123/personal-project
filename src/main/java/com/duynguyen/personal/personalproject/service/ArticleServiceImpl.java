@@ -25,7 +25,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void save(Article article) { this.articleRepository.save(article); }
+    public void save(Article article) {
+        System.out.println("AVCadsadsad");
+        this.articleRepository.save(article);
+    }
 
     @Override
     public void delete(Long id) { this.articleRepository.delete(id); }
