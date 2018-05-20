@@ -37,6 +37,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String email = request.getParameterMap().containsKey("email") ? request.getParameter("email") : "";
         String password = request.getParameterMap().containsKey("password") ? request.getParameter("password") : "";
 
+        System.out.println(email);
+        System.out.println(password);
         MyUser user = new MyUser();
         user.setEmail(email);
         user.setPassword(password);

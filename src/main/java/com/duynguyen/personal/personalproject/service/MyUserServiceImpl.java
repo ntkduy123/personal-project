@@ -16,9 +16,6 @@ import java.util.List;
 public class MyUserServiceImpl implements MyUserService {
 
     @Resource
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Resource
     private MyUserRepository myUserRepository;
 
     @Resource
@@ -27,7 +24,6 @@ public class MyUserServiceImpl implements MyUserService {
     @Transactional
     @Override
     public MyUser save(MyUser user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return myUserRepository.save(user);
     }
 

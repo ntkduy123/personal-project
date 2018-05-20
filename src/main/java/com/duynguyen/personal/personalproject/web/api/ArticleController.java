@@ -10,6 +10,7 @@ import com.duynguyen.personal.personalproject.util.FileUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,9 @@ public class ArticleController extends BaseController {
 
     @Resource
     private MyUserService myUserService;
+
+    @Resource
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Resource
     private AWSService awsService;
@@ -64,13 +68,7 @@ public class ArticleController extends BaseController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
     public List<MyUser> test() {
-        Article article = new Article();
-        article.setTitle("test");
-        article.setCategory("people");
-        article.setDate(new Date());
-        article.setContent("test");
-        article.setSummary("test");
-        articleService.save(article);
+        System.out.println();
         return myUserService.findAll();
     }
 
@@ -92,6 +90,12 @@ public class ArticleController extends BaseController {
         HashMap<String, String> map = new HashMap<>();
         map.put("id", article.getId().toString());
         return map;
+    }
+
+    @RequestMapping(value = "/getAllTitles", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getAllTitles() {
+        return articleService.findAllTitles();
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)

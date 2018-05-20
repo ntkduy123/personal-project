@@ -12,5 +12,4 @@ public abstract class BaseController {
     protected String secretKey = System.getenv("AWS_SECRET_ACCESS_KEY");
 
     protected String bucketName = System.getenv("AWS_BUCKET_NAME");
-
 }

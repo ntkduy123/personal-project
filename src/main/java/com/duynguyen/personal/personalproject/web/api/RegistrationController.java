@@ -11,6 +11,7 @@ import net.minidev.json.JSONObject;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ import java.util.Calendar;
 @Controller
 @RequestMapping(value = "/registration")
 public class RegistrationController {
+
+    @Resource
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Resource
     private MyUserService myUserService;
@@ -49,6 +53,7 @@ public class RegistrationController {
                 return new ResponseEntity<>(messages, HttpStatus.OK);
             }
 
+            myUser.setPassword(bCryptPasswordEncoder.encode(myUser.getPassword()));
             myUserService.save(myUser);
             String appUrl = String.format("%s://%s:%d",request.getScheme(),  request.getServerName(), request.getServerPort());
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent

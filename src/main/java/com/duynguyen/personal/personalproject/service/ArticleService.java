@@ -12,4 +12,6 @@ public interface ArticleService {
     Article findById(Long id);
 
     void delete(Long id);
+
+    List<String> findAllTitles();
 }

@@ -20,6 +20,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<String> findAllTitles() {
+        return articleRepository.findAllTitles();
+    }
+
+    @Override
     public Article findById(Long id) {
         return articleRepository.findOne(id);
     }
