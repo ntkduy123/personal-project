@@ -7,6 +7,7 @@ import com.duynguyen.personal.personalproject.service.AWSService;
 import com.duynguyen.personal.personalproject.service.ArticleService;
 import com.duynguyen.personal.personalproject.service.MyUserService;
 import com.duynguyen.personal.personalproject.util.FileUtil;
+import com.duynguyen.personal.personalproject.util.Trie;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -65,11 +66,15 @@ public class ArticleController extends BaseController {
         return articleService.findById(id);
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/test/{prefix}", method = RequestMethod.GET)
     @ResponseBody
-    public List<MyUser> test() {
-        System.out.println();
-        return myUserService.findAll();
+    public Collection<String> test(@PathVariable String prefix) {
+        Trie trie = new Trie();
+        String[] arr = { "test abc", "testxyz", "tes", "te", "t", "tesa" };
+        for (String s : arr) {
+            trie.insert(s);
+        }
+        return trie.autoComplete(prefix);
     }
 
 
