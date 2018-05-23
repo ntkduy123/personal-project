@@ -65,7 +65,7 @@ public class Trie {
         return node.allPrefixes();
     }
 
-    protected Collection<String> allPrefixes() {
+    private Collection<String> allPrefixes() {
         List<String> results = new ArrayList<String>();
         if (this.terminal) {
             results.add(this.value);
