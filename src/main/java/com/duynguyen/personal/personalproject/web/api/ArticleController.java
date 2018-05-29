@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @Controller
-    @RequestMapping("/api/article")
+@RequestMapping("/api/article")
 public class ArticleController extends BaseController {
 
     @Resource
