@@ -5,7 +5,6 @@ import com.duynguyen.personal.personalproject.domain.VerificationToken;
 import com.duynguyen.personal.personalproject.repository.jpa.MyUserRepository;
 import com.duynguyen.personal.personalproject.repository.jpa.VerificationTokenRepository;
 import com.google.common.collect.Lists;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
