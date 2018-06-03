@@ -1,6 +1,7 @@
 package com.duynguyen.personal.personalproject.security;
 
 import com.duynguyen.personal.personalproject.domain.MyUser;
+import com.google.gson.Gson;
 import io.jsonwebtoken.SignatureAlgorithm;
 import net.minidev.json.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,18 +34,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        System.out.println("XXXXXXXXXXXX");
-        String email = request.getParameterMap().containsKey("email") ? request.getParameter("email") : "";
-        String password = request.getParameterMap().containsKey("password") ? request.getParameter("password") : "";
+        try {
+            Gson gson = new Gson();
+            MyUser user = gson.fromJson(request.getReader(), MyUser.class);
 
-        System.out.println(email);
-        System.out.println(password);
-        MyUser user = new MyUser();
-        user.setEmail(email);
-        user.setPassword(password);
+            return authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(), new ArrayList<>()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(), new ArrayList<>()));
+        return null;
     }
 
     @Override

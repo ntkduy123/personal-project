@@ -5,6 +5,7 @@ import com.duynguyen.personal.personalproject.domain.Article;
 import com.duynguyen.personal.personalproject.domain.MyUser;
 import com.duynguyen.personal.personalproject.service.AWSService;
 import com.duynguyen.personal.personalproject.service.ArticleService;
+import com.duynguyen.personal.personalproject.service.AutocompleteService;
 import com.duynguyen.personal.personalproject.service.MyUserService;
 import com.duynguyen.personal.personalproject.util.FileUtil;
 import com.duynguyen.personal.personalproject.util.Trie;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @Controller
-    @RequestMapping("/api/article")
+@RequestMapping("/api/article")
 public class ArticleController extends BaseController {
 
     @Resource
@@ -37,6 +38,9 @@ public class ArticleController extends BaseController {
 
     @Resource
     private AWSService awsService;
+
+    @Resource
+    private AutocompleteService autocompleteService;
 
     @Autowired
     ServletContext servletContext;
@@ -69,11 +73,7 @@ public class ArticleController extends BaseController {
     @RequestMapping(value = "/test/{prefix}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<String> test(@PathVariable String prefix) {
-        Trie trie = new Trie();
-        String[] arr = { "test abc", "testxyz", "tes", "te", "t", "tesa" };
-        for (String s : arr) {
-            trie.insert(s);
-        }
+        Trie trie = autocompleteService.TRIE;
         return trie.autoComplete(prefix);
     }
 
